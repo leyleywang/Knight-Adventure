@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>骑士冒险记 - Medieval Knight Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 主菜单 -->
+        <div id="mainMenu" class="menu-screen">
+            <div class="menu-content">
+                <h1 class="game-title">⚔️ 骑士冒险记 ⚔️</h1>
+                <p class="game-subtitle">中世纪角色扮演冒险游戏</p>
+                <div class="menu-buttons">
+                    <button id="newGameBtn" class="menu-btn primary-btn">🎮 开始新游戏</button>
+                    <button id="continueGameBtn" class="menu-btn secondary-btn">📖 继续游戏</button>
+                    <button id="helpBtn" class="menu-btn info-btn">❓ 游戏说明</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏说明 -->
+        <div id="helpScreen" class="menu-screen hidden">
+            <div class="menu-content help-content">
+                <h2>🎯 游戏说明</h2>
+                <div class="help-section">
+                    <h3>⌨️ 操作方式</h3>
+                    <ul>
+                        <li><strong>方向键 / WASD</strong>：移动骑士</li>
+                        <li><strong>空格键</strong>：攻击</li>
+                        <li><strong>Enter 键</strong>：与NPC对话 / 确认</li>
+                        <li><strong>I 键</strong>：打开/关闭背包</li>
+                        <li><strong>S 键</strong>：保存游戏</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>🎮 游戏目标</h3>
+                    <ul>
+                        <li>击败怪物获得经验值和金币</li>
+                        <li>升级提升攻击力和生命值</li>
+                        <li>在商店购买装备增强战力</li>
+                        <li>完成任务获得稀有道具</li>
+                        <li>击败BOSS解锁新地图</li>
+                    </ul>
+                </div>
+                <button id="backToMenuBtn" class="menu-btn secondary-btn">🔙 返回菜单</button>
+            </div>
+        </div>
+
+        <!-- 游戏画面 -->
+        <div id="gameScreen" class="hidden">
+            <!-- 顶部状态栏 -->
+            <div class="status-bar">
+                <div class="player-info">
+                    <div class="player-avatar">🛡️</div>
+                    <div class="player-stats">
+                        <div class="player-name">勇敢的骑士</div>
+                        <div class="player-level">等级: <span id="playerLevel">1</span></div>
+                    </div>
+                </div>
+                <div class="resource-bars">
+                    <div class="bar-container">
+                        <span class="bar-label">❤️ 生命</span>
+                        <div class="bar-bg">
+                            <div id="healthBar" class="bar health-bar" style="width: 100%"></div>
+                        </div>
+                        <span id="healthText" class="bar-value">100/100</span>
+                    </div>
+                    <div class="bar-container">
+                        <span class="bar-label">⭐ 经验</span>
+                        <div class="bar-bg">
+                            <div id="expBar" class="bar exp-bar" style="width: 0%"></div>
+                        </div>
+                        <span id="expText" class="bar-value">0/100</span>
+                    </div>
+                </div>
+                <div class="currency-info">
+                    <div class="currency gold">💰 <span id="goldAmount">0</span></div>
+                    <div class="currency attack">⚔️ <span id="attackPower">10</span></div>
+                    <div class="currency defense">🛡️ <span id="defensePower">5</span></div>
+                </div>
+                <div class="menu-buttons">
+                    <button id="openShopBtn" class="action-btn">🏪 商店</button>
+                    <button id="openQuestBtn" class="action-btn">📜 任务</button>
+                    <button id="saveGameBtn" class="action-btn">💾 保存</button>
+                    <button id="backToMenuFromGame" class="action-btn">📋 菜单</button>
+                </div>
+            </div>
+
+            <!-- 游戏画布 -->
+            <div class="canvas-container">
+                <canvas id="gameCanvas" width="800" height="500"></canvas>
+                
+                <!-- 小地图 -->
+                <div class="minimap">
+                    <div class="minimap-title" id="currentMapName">城堡</div>
+                    <canvas id="minimapCanvas" width="150" height="150"></canvas>
+                </div>
+                
+                <!-- 消息提示 -->
+                <div id="messageBox" class="message-box hidden"></div>
+            </div>
+
+            <!-- 底部控制栏 -->
+            <div class="control-bar">
+                <div class="mobile-controls">
+                    <div class="dpad">
+                        <div class="dpad-btn" id="upBtn">↑</div>
+                        <div class="dpad-row">
+                            <div class="dpad-btn" id="leftBtn">←</div>
+                            <div class="dpad-btn" id="downBtn">↓</div>
+                            <div class="dpad-btn" id="rightBtn">→</div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="attackBtn" class="mobile-action-btn attack-btn">⚔️</button>
+                        <button id="interactBtn" class="mobile-action-btn interact-btn">🔘</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商店界面 -->
+        <div id="shopModal" class="modal hidden">
+            <div class="modal-content shop-content">
+                <div class="modal-header">
+                    <h2>🏪 骑士商店</h2>
+                    <span class="close-modal" id="closeShopBtn">&times;</span>
+                </div>
+                <div class="shop-tabs">
+                    <button class="shop-tab active" data-tab="weapons">⚔️ 武器</button>
+                    <button class="shop-tab" data-tab="armor">🛡️ 盔甲</button>
+                    <button class="shop-tab" data-tab="potions">🧪 药水</button>
+                </div>
+                <div id="shopItems" class="shop-items"></div>
+                <div class="shop-footer">
+                    <span>你的金币: 💰 <span id="shopGold">0</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 任务界面 -->
+        <div id="questModal" class="modal hidden">
+            <div class="modal-content quest-content">
+                <div class="modal-header">
+                    <h2>📜 任务列表</h2>
+                    <span class="close-modal" id="closeQuestBtn">&times;</span>
+                </div>
+                <div class="quest-tabs">
+                    <button class="quest-tab active" data-tab="active">📌 进行中</button>
+                    <button class="quest-tab" data-tab="completed">✅ 已完成</button>
+                </div>
+                <div id="questList" class="quest-list"></div>
+            </div>
+        </div>
+
+        <!-- NPC对话界面 -->
+        <div id="dialogModal" class="modal hidden">
+            <div class="modal-content dialog-content">
+                <div class="dialog-avatar" id="dialogAvatar">👴</div>
+                <div class="dialog-header">
+                    <h3 id="dialogName">神秘商人</h3>
+                </div>
+                <div class="dialog-text" id="dialogText">欢迎来到我的商店，勇敢的骑士！</div>
+                <div class="dialog-options" id="dialogOptions"></div>
+            </div>
+        </div>
+
+        <!-- 升级提示 -->
+        <div id="levelUpModal" class="modal hidden">
+            <div class="modal-content levelup-content">
+                <div class="levelup-icon">🎉</div>
+                <h2>升级了！</h2>
+                <p>恭喜你达到等级 <span id="newLevel">2</span>！</p>
+                <div class="levelup-stats">
+                    <div class="stat-increase">
+                        <span class="stat-icon">❤️</span>
+                        <span class="stat-name">生命上限</span>
+                        <span class="stat-value">+<span id="hpIncrease">20</span></span>
+                    </div>
+                    <div class="stat-increase">
+                        <span class="stat-icon">⚔️</span>
+                        <span class="stat-name">攻击力</span>
+                        <span class="stat-value">+<span id="atkIncrease">5</span></span>
+                    </div>
+                    <div class="stat-increase">
+                        <span class="stat-icon">🛡️</span>
+                        <span class="stat-name">防御力</span>
+                        <span class="stat-value">+<span id="defIncrease">3</span></span>
+                    </div>
+                </div>
+                <button id="closeLevelUpBtn" class="menu-btn primary-btn">继续冒险</button>
+            </div>
+        </div>
+
+        <!-- 战斗界面 -->
+        <div id="battleModal" class="modal hidden">
+            <div class="modal-content battle-content">
+                <div class="battle-header">
+                    <h2>⚔️ 战斗开始！</h2>
+                </div>
+                <div class="battle-arena">
+                    <div class="battle-player">
+                        <div class="battle-sprite">🛡️</div>
+                        <div class="battle-name">骑士</div>
+                        <div class="battle-hp-bar">
+                            <div id="battlePlayerHp" class="battle-hp-fill" style="width: 100%"></div>
+                        </div>
+                        <div class="battle-hp-text" id="battlePlayerHpText">100/100</div>
+                    </div>
+                    <div class="battle-vs">VS</div>
+                    <div class="battle-enemy">
+                        <div class="battle-sprite" id="battleEnemySprite">💀</div>
+                        <div class="battle-name" id="battleEnemyName">骷髅</div>
+                        <div class="battle-hp-bar">
+                            <div id="battleEnemyHp" class="battle-hp-fill enemy" style="width: 100%"></div>
+                        </div>
+                        <div class="battle-hp-text" id="battleEnemyHpText">50/50</div>
+                    </div>
+                </div>
+                <div class="battle-log" id="battleLog">
+                    <div class="log-entry">战斗开始！</div>
+                </div>
+                <div class="battle-actions">
+                    <button id="battleAttackBtn" class="action-btn battle-btn">⚔️ 攻击</button>
+                    <button id="battleDefendBtn" class="action-btn battle-btn">🛡️ 防御</button>
+                    <button id="battlePotionBtn" class="action-btn battle-btn">🧪 药水</button>
+                    <button id="battleFleeBtn" class="action-btn battle-btn">🏃 逃跑</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏结束界面 -->
+        <div id="gameOverModal" class="modal hidden">
+            <div class="modal-content gameover-content">
+                <div class="gameover-icon">💀</div>
+                <h2>游戏结束</h2>
+                <p>你被击败了...</p>
+                <div class="gameover-stats">
+                    <p>达到等级: <span id="finalLevel">1</span></p>
+                    <p>获得金币: <span id="finalGold">0</span></p>
+                </div>
+                <div class="gameover-buttons">
+                    <button id="restartBtn" class="menu-btn primary-btn">🔄 重新开始</button>
+                    <button id="backToMenuFromGameOver" class="menu-btn secondary-btn">📋 返回菜单</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 地图选择界面 -->
+        <div id="mapSelectModal" class="modal hidden">
+            <div class="modal-content map-select-content">
+                <div class="modal-header">
+                    <h2>🗺️ 选择冒险地图</h2>
+                    <span class="close-modal" id="closeMapSelectBtn">&times;</span>
+                </div>
+                <div id="mapList" class="map-list"></div>
+            </div>
+        </div>
+
+        <!-- 背包界面 -->
+        <div id="inventoryModal" class="modal hidden">
+            <div class="modal-content inventory-content">
+                <div class="modal-header">
+                    <h2>🎒 背包</h2>
+                    <span class="close-modal" id="closeInventoryBtn">&times;</span>
+                </div>
+                <div class="inventory-tabs">
+                    <button class="inventory-tab active" data-tab="equipment">⚔️ 装备</button>
+                    <button class="inventory-tab" data-tab="items">📦 物品</button>
+                </div>
+                <div id="inventoryContent" class="inventory-content-area"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/game-config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/monster.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/shop.js"></script>
+    <script src="js/quest.js"></script>
+    <script src="js/combat.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/save-system.js"></script>
+    <script src="js/input-handler.js"></script>
+    <script src="js/game-engine.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
