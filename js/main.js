@@ -47,11 +47,27 @@ class KnightAdventureGame {
         
         this.monsterManager.clearAll();
         
+        this.combatSystem.isInBattle = false;
+        this.combatSystem.currentEnemy = null;
+        this.combatSystem.battleLog = [];
+        this.combatSystem.hideBattleUI();
+        
         this.questSystem.initializeQuests();
         
         const currentMapId = this.mapManager.currentMapId;
+        
+        const safeSpawnAreas = [
+            { x: 50, y: 50, width: 100, height: 100 },
+            { x: GameConfig.CANVAS_WIDTH - 150, y: 50, width: 100, height: 100 },
+            { x: 50, y: GameConfig.CANVAS_HEIGHT - 150, width: 100, height: 100 },
+            { x: GameConfig.CANVAS_WIDTH - 150, y: GameConfig.CANVAS_HEIGHT - 150, width: 100, height: 100 }
+        ];
+        
         for (let i = 0; i < 5; i++) {
-            this.monsterManager.spawnMonster(currentMapId);
+            const spawnArea = Utils.pickRandom(safeSpawnAreas);
+            const spawnX = Utils.random(spawnArea.x, spawnArea.x + spawnArea.width);
+            const spawnY = Utils.random(spawnArea.y, spawnArea.y + spawnArea.height);
+            this.monsterManager.spawnMonster(currentMapId, spawnX, spawnY);
         }
         
         const currentMap = this.mapManager.getCurrentMap();
@@ -61,10 +77,8 @@ class KnightAdventureGame {
         
         this.ui.showGameScreen();
         
-        if (!this.gameEngine.isRunning) {
-            this.gameEngine.start();
-            this.isRunning = true;
-        }
+        this.gameEngine.start();
+        this.isRunning = true;
         
         this.saveSystem.autoSave();
         
@@ -91,10 +105,8 @@ class KnightAdventureGame {
             
             this.ui.showGameScreen();
             
-            if (!this.gameEngine.isRunning) {
-                this.gameEngine.start();
-                this.isRunning = true;
-            }
+            this.gameEngine.start();
+            this.isRunning = true;
             
             this.saveSystem.autoSave();
             
