@@ -71,24 +71,24 @@ class CombatSystem {
             this.addLog(`💀 你被击败了...`);
         }
         
-        setTimeout(() => {
-            this.hideBattleUI();
-            this.currentEnemy = null;
-            this.battleLog = [];
-        }, 2000);
+        this.hideBattleUI();
+        this.currentEnemy = null;
+        this.battleLog = [];
     }
     
     updateQuestProgress(enemy) {
-        const questManager = this.game.questManager;
+        if (!this.game.questSystem) return;
+        
+        const questSystem = this.game.questSystem;
         const currentMapId = this.game.mapManager.currentMapId;
         
-        const activeQuests = questManager.getActiveQuestsForMap(currentMapId);
+        const activeQuests = questSystem.getActiveQuestsForMap(currentMapId);
         
         for (const quest of activeQuests) {
             if (quest.type === 'kill' && quest.target === enemy.id) {
-                questManager.updateQuestProgress(quest.id, 1);
+                questSystem.updateQuestProgress(quest.id, 1);
             } else if (quest.type === 'boss' && quest.target === enemy.id && enemy.isBoss) {
-                questManager.updateQuestProgress(quest.id, 1);
+                questSystem.updateQuestProgress(quest.id, 1);
             }
         }
     }
@@ -104,13 +104,17 @@ class CombatSystem {
             this.addLog(`🗝️ 你解锁了新地图：神秘森林！`);
             Utils.showMessage('🗝️ 解锁了新地图：神秘森林！', 3000);
             
-            this.game.questManager.activateMapQuests('forest');
+            if (this.game.questSystem) {
+                this.game.questSystem.activateMapQuests('forest');
+            }
         } else if (currentMapId === 'forest' && !mapManager.isMapUnlocked('dungeon')) {
             mapManager.unlockMap('dungeon');
             this.addLog(`🗝️ 你解锁了新地图：黑暗地牢！`);
             Utils.showMessage('🗝️ 解锁了新地图：黑暗地牢！', 3000);
             
-            this.game.questManager.activateMapQuests('dungeon');
+            if (this.game.questSystem) {
+                this.game.questSystem.activateMapQuests('dungeon');
+            }
         }
     }
     
