@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>骑士冒险记 - Medieval Knight Adventure</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,12 +12,12 @@
         <!-- 主菜单 -->
         <div id="mainMenu" class="menu-screen">
             <div class="menu-content">
-                <h1 class="game-title">⚔️ 骑士冒险记 ⚔️</h1>
+                <h1 class="game-title"><i class="fas fa-shield-alt"></i> 骑士冒险记 <i class="fas fa-shield-alt"></i></h1>
                 <p class="game-subtitle">中世纪角色扮演冒险游戏</p>
                 <div class="menu-buttons">
-                    <button id="newGameBtn" class="menu-btn primary-btn">🎮 开始新游戏</button>
-                    <button id="continueGameBtn" class="menu-btn secondary-btn">📖 继续游戏</button>
-                    <button id="helpBtn" class="menu-btn info-btn">❓ 游戏说明</button>
+                    <button id="newGameBtn" class="menu-btn primary-btn"><i class="fas fa-play"></i> 开始新游戏</button>
+                    <button id="continueGameBtn" class="menu-btn secondary-btn"><i class="fas fa-book-open"></i> 继续游戏</button>
+                    <button id="helpBtn" class="menu-btn info-btn"><i class="fas fa-question-circle"></i> 游戏说明</button>
                 </div>
             </div>
         </div>
@@ -24,28 +25,50 @@
         <!-- 游戏说明 -->
         <div id="helpScreen" class="menu-screen hidden">
             <div class="menu-content help-content">
-                <h2>🎯 游戏说明</h2>
-                <div class="help-section">
-                    <h3>⌨️ 操作方式</h3>
-                    <ul>
-                        <li><strong>方向键 / WASD</strong>：移动骑士</li>
-                        <li><strong>空格键</strong>：攻击</li>
-                        <li><strong>Enter 键</strong>：与NPC对话 / 确认</li>
-                        <li><strong>I 键</strong>：打开/关闭背包</li>
-                        <li><strong>S 键</strong>：保存游戏</li>
-                    </ul>
+                <h2><i class="fas fa-info-circle"></i> 游戏说明</h2>
+                <div class="help-sections-container">
+                    <div class="help-section">
+                        <h3><i class="fas fa-keyboard"></i> 操作方式</h3>
+                        <ul>
+                            <li><i class="fas fa-arrows-alt"></i> <strong>方向键 / WASD</strong>：移动骑士</li>
+                            <li><i class="fas fa-fist-raised"></i> <strong>空格键</strong>：攻击</li>
+                            <li><i class="fas fa-handshake"></i> <strong>Enter 键</strong>：与NPC对话 / 确认</li>
+                            <li><i class="fas fa-box-open"></i> <strong>I 键</strong>：打开/关闭背包</li>
+                            <li><i class="fas fa-save"></i> <strong>S 键</strong>：保存游戏</li>
+                        </ul>
+                    </div>
+                    <div class="help-section">
+                        <h3><i class="fas fa-gamepad"></i> 游戏目标</h3>
+                        <ul>
+                            <li><i class="fas fa-skull"></i> 击败怪物获得经验值和金币</li>
+                            <li><i class="fas fa-level-up-alt"></i> 升级提升攻击力和生命值</li>
+                            <li><i class="fas fa-shopping-cart"></i> 在商店购买装备增强战力</li>
+                            <li><i class="fas fa-tasks"></i> 完成任务获得稀有道具</li>
+                            <li><i class="fas fa-crown"></i> 击败BOSS解锁新地图</li>
+                        </ul>
+                    </div>
+                    <div class="help-section">
+                        <h3><i class="fas fa-map-marked-alt"></i> 冒险地图</h3>
+                        <ul>
+                            <li><i class="fas fa-landmark"></i> <strong>城堡</strong>：初始地图，适合等级1-4</li>
+                            <li><i class="fas fa-tree"></i> <strong>神秘森林</strong>：等级5解锁，更强大的怪物</li>
+                            <li><i class="fas fa-dungeon"></i> <strong>黑暗地牢</strong>：等级10解锁，危险重重</li>
+                        </ul>
+                    </div>
+                    <div class="help-section">
+                        <h3><i class="fas fa-exclamation-triangle"></i> 战斗提示</h3>
+                        <ul>
+                            <li><i class="fas fa-fire"></i> 攻击会消耗敌人生命值</li>
+                            <li><i class="fas fa-shield-alt"></i> 防御可以减少下次受到的伤害</li>
+                            <li><i class="fas fa-pills"></i> 使用药水可以恢复生命</li>
+                            <li><i class="fas fa-running"></i> 普通怪物可以尝试逃跑（BOSS无法逃跑）</li>
+                            <li><i class="fas fa-star"></i> 注意：战斗中有10%概率造成暴击！</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="help-section">
-                    <h3>🎮 游戏目标</h3>
-                    <ul>
-                        <li>击败怪物获得经验值和金币</li>
-                        <li>升级提升攻击力和生命值</li>
-                        <li>在商店购买装备增强战力</li>
-                        <li>完成任务获得稀有道具</li>
-                        <li>击败BOSS解锁新地图</li>
-                    </ul>
+                <div class="menu-buttons">
+                    <button id="backToMenuBtn" class="menu-btn secondary-btn"><i class="fas fa-arrow-left"></i> 返回菜单</button>
                 </div>
-                <button id="backToMenuBtn" class="menu-btn secondary-btn">🔙 返回菜单</button>
             </div>
         </div>
 
@@ -54,7 +77,7 @@
             <!-- 顶部状态栏 -->
             <div class="status-bar">
                 <div class="player-info">
-                    <div class="player-avatar">🛡️</div>
+                    <div class="player-avatar"><i class="fas fa-user-knight"></i></div>
                     <div class="player-stats">
                         <div class="player-name">勇敢的骑士</div>
                         <div class="player-level">等级: <span id="playerLevel">1</span></div>
@@ -62,14 +85,14 @@
                 </div>
                 <div class="resource-bars">
                     <div class="bar-container">
-                        <span class="bar-label">❤️ 生命</span>
+                        <span class="bar-label"><i class="fas fa-heart"></i> 生命</span>
                         <div class="bar-bg">
                             <div id="healthBar" class="bar health-bar" style="width: 100%"></div>
                         </div>
                         <span id="healthText" class="bar-value">100/100</span>
                     </div>
                     <div class="bar-container">
-                        <span class="bar-label">⭐ 经验</span>
+                        <span class="bar-label"><i class="fas fa-star"></i> 经验</span>
                         <div class="bar-bg">
                             <div id="expBar" class="bar exp-bar" style="width: 0%"></div>
                         </div>
@@ -77,15 +100,15 @@
                     </div>
                 </div>
                 <div class="currency-info">
-                    <div class="currency gold">💰 <span id="goldAmount">0</span></div>
-                    <div class="currency attack">⚔️ <span id="attackPower">10</span></div>
-                    <div class="currency defense">🛡️ <span id="defensePower">5</span></div>
+                    <div class="currency gold"><i class="fas fa-coins"></i> <span id="goldAmount">0</span></div>
+                    <div class="currency attack"><i class="fas fa-fist-raised"></i> <span id="attackPower">10</span></div>
+                    <div class="currency defense"><i class="fas fa-shield-alt"></i> <span id="defensePower">5</span></div>
                 </div>
                 <div class="menu-buttons">
-                    <button id="openShopBtn" class="action-btn">🏪 商店</button>
-                    <button id="openQuestBtn" class="action-btn">📜 任务</button>
-                    <button id="saveGameBtn" class="action-btn">💾 保存</button>
-                    <button id="backToMenuFromGame" class="action-btn">📋 菜单</button>
+                    <button id="openShopBtn" class="action-btn"><i class="fas fa-store"></i> 商店</button>
+                    <button id="openQuestBtn" class="action-btn"><i class="fas fa-tasks"></i> 任务</button>
+                    <button id="saveGameBtn" class="action-btn"><i class="fas fa-save"></i> 保存</button>
+                    <button id="backToMenuFromGame" class="action-btn"><i class="fas fa-bars"></i> 菜单</button>
                 </div>
             </div>
 
@@ -126,17 +149,17 @@
         <div id="shopModal" class="modal hidden">
             <div class="modal-content shop-content">
                 <div class="modal-header">
-                    <h2>🏪 骑士商店</h2>
+                    <h2><i class="fas fa-store"></i> 骑士商店</h2>
                     <span class="close-modal" id="closeShopBtn">&times;</span>
                 </div>
                 <div class="shop-tabs">
-                    <button class="shop-tab active" data-tab="weapons">⚔️ 武器</button>
-                    <button class="shop-tab" data-tab="armor">🛡️ 盔甲</button>
-                    <button class="shop-tab" data-tab="potions">🧪 药水</button>
+                    <button class="shop-tab active" data-tab="weapons"><i class="fas fa-gavel"></i> 武器</button>
+                    <button class="shop-tab" data-tab="armor"><i class="fas fa-shield-alt"></i> 盔甲</button>
+                    <button class="shop-tab" data-tab="potions"><i class="fas fa-pills"></i> 药水</button>
                 </div>
                 <div id="shopItems" class="shop-items"></div>
                 <div class="shop-footer">
-                    <span>你的金币: 💰 <span id="shopGold">0</span></span>
+                    <span>你的金币: <i class="fas fa-coins"></i> <span id="shopGold">0</span></span>
                 </div>
             </div>
         </div>
@@ -145,12 +168,12 @@
         <div id="questModal" class="modal hidden">
             <div class="modal-content quest-content">
                 <div class="modal-header">
-                    <h2>📜 任务列表</h2>
+                    <h2><i class="fas fa-scroll"></i> 任务列表</h2>
                     <span class="close-modal" id="closeQuestBtn">&times;</span>
                 </div>
                 <div class="quest-tabs">
-                    <button class="quest-tab active" data-tab="active">📌 进行中</button>
-                    <button class="quest-tab" data-tab="completed">✅ 已完成</button>
+                    <button class="quest-tab active" data-tab="active"><i class="fas fa-spinner"></i> 进行中</button>
+                    <button class="quest-tab" data-tab="completed"><i class="fas fa-check-circle"></i> 已完成</button>
                 </div>
                 <div id="questList" class="quest-list"></div>
             </div>
@@ -171,27 +194,27 @@
         <!-- 升级提示 -->
         <div id="levelUpModal" class="modal hidden">
             <div class="modal-content levelup-content">
-                <div class="levelup-icon">🎉</div>
-                <h2>升级了！</h2>
+                <div class="levelup-icon"><i class="fas fa-trophy"></i></div>
+                <h2><i class="fas fa-arrow-up"></i> 升级了！</h2>
                 <p>恭喜你达到等级 <span id="newLevel">2</span>！</p>
                 <div class="levelup-stats">
                     <div class="stat-increase">
-                        <span class="stat-icon">❤️</span>
+                        <span class="stat-icon"><i class="fas fa-heart"></i></span>
                         <span class="stat-name">生命上限</span>
                         <span class="stat-value">+<span id="hpIncrease">20</span></span>
                     </div>
                     <div class="stat-increase">
-                        <span class="stat-icon">⚔️</span>
+                        <span class="stat-icon"><i class="fas fa-fist-raised"></i></span>
                         <span class="stat-name">攻击力</span>
                         <span class="stat-value">+<span id="atkIncrease">5</span></span>
                     </div>
                     <div class="stat-increase">
-                        <span class="stat-icon">🛡️</span>
+                        <span class="stat-icon"><i class="fas fa-shield-alt"></i></span>
                         <span class="stat-name">防御力</span>
                         <span class="stat-value">+<span id="defIncrease">3</span></span>
                     </div>
                 </div>
-                <button id="closeLevelUpBtn" class="menu-btn primary-btn">继续冒险</button>
+                <button id="closeLevelUpBtn" class="menu-btn primary-btn"><i class="fas fa-play"></i> 继续冒险</button>
             </div>
         </div>
 
@@ -199,20 +222,20 @@
         <div id="battleModal" class="modal hidden">
             <div class="modal-content battle-content">
                 <div class="battle-header">
-                    <h2>⚔️ 战斗开始！</h2>
+                    <h2><i class="fas fa-swords"></i> 战斗开始！</h2>
                 </div>
                 <div class="battle-arena">
                     <div class="battle-player">
-                        <div class="battle-sprite">🛡️</div>
+                        <div class="battle-sprite"><i class="fas fa-user-knight"></i></div>
                         <div class="battle-name">骑士</div>
                         <div class="battle-hp-bar">
                             <div id="battlePlayerHp" class="battle-hp-fill" style="width: 100%"></div>
                         </div>
                         <div class="battle-hp-text" id="battlePlayerHpText">100/100</div>
                     </div>
-                    <div class="battle-vs">VS</div>
+                    <div class="battle-vs"><i class="fas fa-bolt"></i></div>
                     <div class="battle-enemy">
-                        <div class="battle-sprite" id="battleEnemySprite">💀</div>
+                        <div class="battle-sprite" id="battleEnemySprite"><i class="fas fa-skull"></i></div>
                         <div class="battle-name" id="battleEnemyName">骷髅</div>
                         <div class="battle-hp-bar">
                             <div id="battleEnemyHp" class="battle-hp-fill enemy" style="width: 100%"></div>
@@ -224,10 +247,10 @@
                     <div class="log-entry">战斗开始！</div>
                 </div>
                 <div class="battle-actions">
-                    <button id="battleAttackBtn" class="action-btn battle-btn">⚔️ 攻击</button>
-                    <button id="battleDefendBtn" class="action-btn battle-btn">🛡️ 防御</button>
-                    <button id="battlePotionBtn" class="action-btn battle-btn">🧪 药水</button>
-                    <button id="battleFleeBtn" class="action-btn battle-btn">🏃 逃跑</button>
+                    <button id="battleAttackBtn" class="action-btn battle-btn"><i class="fas fa-fist-raised"></i> 攻击</button>
+                    <button id="battleDefendBtn" class="action-btn battle-btn"><i class="fas fa-shield-alt"></i> 防御</button>
+                    <button id="battlePotionBtn" class="action-btn battle-btn"><i class="fas fa-pills"></i> 药水</button>
+                    <button id="battleFleeBtn" class="action-btn battle-btn"><i class="fas fa-running"></i> 逃跑</button>
                 </div>
             </div>
         </div>
@@ -235,16 +258,16 @@
         <!-- 游戏结束界面 -->
         <div id="gameOverModal" class="modal hidden">
             <div class="modal-content gameover-content">
-                <div class="gameover-icon">💀</div>
-                <h2>游戏结束</h2>
+                <div class="gameover-icon"><i class="fas fa-skull"></i></div>
+                <h2><i class="fas fa-times-circle"></i> 游戏结束</h2>
                 <p>你被击败了...</p>
                 <div class="gameover-stats">
                     <p>达到等级: <span id="finalLevel">1</span></p>
                     <p>获得金币: <span id="finalGold">0</span></p>
                 </div>
                 <div class="gameover-buttons">
-                    <button id="restartBtn" class="menu-btn primary-btn">🔄 重新开始</button>
-                    <button id="backToMenuFromGameOver" class="menu-btn secondary-btn">📋 返回菜单</button>
+                    <button id="restartBtn" class="menu-btn primary-btn"><i class="fas fa-redo"></i> 重新开始</button>
+                    <button id="backToMenuFromGameOver" class="menu-btn secondary-btn"><i class="fas fa-bars"></i> 返回菜单</button>
                 </div>
             </div>
         </div>
@@ -253,7 +276,7 @@
         <div id="mapSelectModal" class="modal hidden">
             <div class="modal-content map-select-content">
                 <div class="modal-header">
-                    <h2>🗺️ 选择冒险地图</h2>
+                    <h2><i class="fas fa-map-marked-alt"></i> 选择冒险地图</h2>
                     <span class="close-modal" id="closeMapSelectBtn">&times;</span>
                 </div>
                 <div id="mapList" class="map-list"></div>
@@ -264,12 +287,12 @@
         <div id="inventoryModal" class="modal hidden">
             <div class="modal-content inventory-content">
                 <div class="modal-header">
-                    <h2>🎒 背包</h2>
+                    <h2><i class="fas fa-box-open"></i> 背包</h2>
                     <span class="close-modal" id="closeInventoryBtn">&times;</span>
                 </div>
                 <div class="inventory-tabs">
-                    <button class="inventory-tab active" data-tab="equipment">⚔️ 装备</button>
-                    <button class="inventory-tab" data-tab="items">📦 物品</button>
+                    <button class="inventory-tab active" data-tab="equipment"><i class="fas fa-tshirt"></i> 装备</button>
+                    <button class="inventory-tab" data-tab="items"><i class="fas fa-boxes"></i> 物品</button>
                 </div>
                 <div id="inventoryContent" class="inventory-content-area"></div>
             </div>
