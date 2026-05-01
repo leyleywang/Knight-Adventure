@@ -414,9 +414,14 @@ class CombatSystem {
         
         this.isInBattle = state.isInBattle || false;
         this.battleLog = state.battleLog || [];
+        this.playerDefending = false;
         
         if (state.currentEnemy && this.isInBattle) {
             this.currentEnemy = state.currentEnemy;
+            this.showBattleUI();
+        } else {
+            this.currentEnemy = null;
+            this.hideBattleUI();
         }
     }
 }
